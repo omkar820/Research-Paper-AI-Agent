@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 import json
 import re
 from config import Config
@@ -122,4 +125,4 @@ if __name__ == "__main__":
     # Example Usage
     # Ensure API keys are set in environment or Config
     agent = ResearchAgent()
-    agent.run("1505.04597")
+    agent.run("2212.03273")
