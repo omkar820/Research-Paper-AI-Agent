@@ -1,5 +1,8 @@
 import os
+from dotenv import load_dotenv
+
 load_dotenv()
+
 class Config:
     # External Services
     GROBID_URL = os.getenv("GROBID_URL", "https://kermitt2-grobid.hf.space")
