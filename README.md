@@ -24,9 +24,6 @@ AI Agents/
 │   ├── validation_checkers.py  # Code verification logic
 │   └── Sub_agents/
 │       └── analysis_agent.py   # Specialized agent for paper analysis
-├── papers/                     # Directory for downloaded PDFs
-├── generated_code/             # Directory for generated Python code
-└── notebooks/                  # Exploratory notebooks
 ```
 
 ## 🛠️ Prerequisites
