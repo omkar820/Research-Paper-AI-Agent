@@ -9,10 +9,14 @@ from tools import ArxivTools, GrobidTools
 from agent_utils import LLMUtils
 from validation_checkers import ValidationCheckers
 from Sub_agents.analysis_agent import AnalysisAgent
+from Sub_agents.summary_agent import SummaryAgent
+import markdown
+from xhtml2pdf import pisa
 
 class ResearchAgent:
     def __init__(self):
         self.analysis_agent = AnalysisAgent()
+        self.summary_agent = SummaryAgent()
 
     def generate_implementation(self, analysis_json, outdir=Config.OUTPUT_DIR):
         """Generates PyTorch code based on the analysis."""
@@ -112,6 +116,26 @@ class ResearchAgent:
             return
             
         print("Analysis Result:", json.dumps(analysis, indent=2))
+
+        # 3.5 Generate Summary
+        summary = self.summary_agent.generate_summary(sections)
+        if summary:
+            summary_path = os.path.join(Config.OUTPUT_DIR, "summary.pdf")
+            os.makedirs(Config.OUTPUT_DIR, exist_ok=True)
+            
+            # Convert Markdown to HTML
+            html_text = markdown.markdown(summary)
+            
+            # Convert HTML to PDF
+            with open(summary_path, "wb") as pdf_file:
+                pisa_status = pisa.CreatePDF(html_text, dest=pdf_file)
+            
+            if not pisa_status.err:
+                print(f"Summary saved to {summary_path}")
+            else:
+                print(f"Failed to generate PDF summary")
+
+
         
         # 4. Generate
         code_path = self.generate_implementation(analysis)

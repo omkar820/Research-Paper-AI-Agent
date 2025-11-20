@@ -48,3 +48,4 @@ share/python-wheels/
 *.egg
 *.ipynb
 MANIFEST
+data
